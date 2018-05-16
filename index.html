@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+       
+        <div class="title">
+	 <h1>new york map</h1>
+</div>
+<div class="main">
+	<div id="newyorkmap"></div>
+   
+</div>
+    </div>
+    <script src="index.js"></script>
+    	 <script>
+      function initMap() {
+        var uluru = {lat: 40.731500,  lng:-73.880842};
+        var map = new google.maps.Map(document.getElementById('newyorkmap'), {
+          zoom: 15,
+          center: uluru
+        });
+        var json=map.data.loadGeoJson('http://services5.arcgis.com/GfwWNkhOj9bNBqoJ/arcgis/rest/services/nycd/FeatureServer/0/query?where=1=1&outFields=*&outSR=4326&f=geojson');
+        for (var i = 0; i < json.features.length; i++) {
+          var coords = json.features[i].geometry.coordinates;
+          var latLng = new google.maps.LatLng(coords[1],coords[0]);
+          var marker = new google.maps.Marker({
+            position: latLng,
+            map: map
+          });
+        }
+        
+      }
+    </script >  
+<script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA9SboH-qPPCBhLXfJ8eGnbCkSUaap-4bc&callback=initMap">
+    </script>
+</body>
+</html>
